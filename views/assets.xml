@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_backend" name="assets_backend" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/owl_test_views/static/src/components/owl_component1/owl_component1.js"></script>
+            <script type="text/javascript" src="/owl_test_views/static/src/components/owl_component2/owl_component2.js"></script>
+
+            <script type="text/javascript" src="/owl_test_views/static/src/owl_test_view/owl_test_view.js"></script>
+            <script type="text/javascript" src="/owl_test_views/static/src/owl_test_view/owl_test_model.js"></script>
+            <script type="text/javascript" src="/owl_test_views/static/src/owl_test_view/owl_test_controller.js"></script>
+            <script type="text/javascript" src="/owl_test_views/static/src/owl_test_view/owl_test_renderer.js"></script>
+
+            <script type="text/javascript" src="/owl_test_views/static/src/owl_graph_view/owl_graph_view.js"></script>
+            <script type="text/javascript" src="/owl_test_views/static/src/owl_graph_view/owl_graph_model.js"></script>
+            <script type="text/javascript" src="/owl_test_views/static/src/owl_graph_view/owl_graph_controller.js"></script>
+            <script type="text/javascript" src="/owl_test_views/static/src/owl_graph_view/owl_graph_renderer.js"></script>
+
+            <script type="text/javascript" src="/owl_test_views/static/src/owl_test_01/owl_test_01.js"></script>
+            <script type="text/javascript" src="/owl_test_views/static/src/owl_test_02/owl_test_02.js"></script>
+
+            <script type="text/javascript" src="/web/static/lib/Chart/Chart.js"></script>
+
+
+
+
+
+        </xpath>
+        <xpath expr="link[last()]" position="after">
+            <link rel="stylesheet" type="text/scss" href="/owl_test_views/static/src/owl_test_view/owl_test_view.scss"/>
+        </xpath>
+    </template>
+</odoo>

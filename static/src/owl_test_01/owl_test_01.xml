@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+
+   <t t-name="is_bsa14.OwlTest01Template">
+        <Layout display="display">
+            <h1>Owl Test 01</h1>
+
+            Vue avec les boutons Filtres et Favoris : 
+            <pre>searchMenuTypes: ['filter', 'favorite']</pre>
+
+            Ceci n'est pas une vue owl, mais une vue qweb. Il manque cet attribut à la vue : <br />
+            <pre>owl="1"</pre>
+
+            Il faut créer un widget OWL et l'ajouter dans cette vue pour faciliter la migration vers Odoo 16 <br />
+
+            Comme ce n'est pas une vue owl, l'attribut 't-on-click="ClickButton1"'' de ce bouton n'est pas interpété :  <br />
+            <button class="btn btn-primary" t-on-click="ClickButton1"> Bouton 1 </button>
+
+        </Layout>
+    </t>
+
+</templates>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <div t-name="owl_test_views.OWLGraphRenderer"  owl="1">
+        <h1>Test OWL Graph View</h1>
+        <button class="btn btn-primary" t-on-click="ClickButton1"> Partenaires </button>
+        <button class="btn btn-primary" t-on-click="ClickButton2"> Utilisateurs </button>
+        <div style="width: 800px;">
+            <canvas t-ref="myChart"></canvas>
+        </div>
+
+        <t t-foreach="props.items" t-as="item">
+            <div class="tree-item-wrapper">
+                <div 
+                    t-attf-class="list-group-item list-group-item-action d-flex justify-content-between align-items-center owl-tree-item"
+                >
+                    Composant 2 : <t t-esc="item.name"/> (<t t-esc="item.id"/>)
+                </div>
+            </div>
+        </t>
+
+
+
+
+    </div>
+
+</templates>

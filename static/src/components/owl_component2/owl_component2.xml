@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="owl_test_views.OwlComponent2" owl="1">
+
+        <div class="d-flex p-2 flex-row owl-tree-root">
+            <div class="list-group">
+
+                <h1>Component 2</h1>
+                <button class="btn btn-primary" t-on-click="ClickButton1"> Partenaires </button>
+                <button class="btn btn-primary" t-on-click="ClickButton2"> Utilisateurs </button>
+
+                <t t-foreach="props.items" t-as="item">
+                    <div class="tree-item-wrapper">
+                        <div 
+                            t-attf-class="list-group-item list-group-item-action d-flex justify-content-between align-items-center owl-tree-item"
+                        >
+                            Composant 2 : <t t-esc="item.name"/> (<t t-esc="item.id"/>)
+                        </div>
+                    </div>
+                </t>
+            </div>
+        </div>
+    </t>
+
+</templates>

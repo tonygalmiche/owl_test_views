@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <menuitem name="OWL Test"    id="owl_test_main_menu"    sequence="0"/>
+
+
+    <record id="owl_test_01_action_client" model="ir.actions.client" >
+        <field name="name">OWL Test 01</field>
+        <field name="tag">is_bsa14.owl_test_01_registry</field>
+    </record>
+    <menuitem name="OWL Test 01" id="owl_test_01_menu" parent="owl_test_main_menu" action="owl_test_01_action_client" sequence="10"/>
+
+    <record id="owl_test_02_action_client" model="ir.actions.client" >
+        <field name="name">OWL Test 02</field>
+        <field name="tag">is_bsa14.owl_test_02_registry</field>
+    </record>
+    <menuitem name="OWL Test 02" id="owl_test_02_menu" parent="owl_test_main_menu" action="owl_test_02_action_client" sequence="12"/>
+
+
+    <record id="owl_test_view" model="ir.ui.view">
+        <field name="name">Test OWL</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <owl_test></owl_test>
+        </field>
+    </record>
+    <record id='owl_test_partner_action' model='ir.actions.act_window'>
+        <field name="name">Partenaires</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">owl_test,tree,kanban,form</field>
+    </record>
+    <menuitem name="Partenaires" id="owl_test_partner_menu" parent="owl_test_main_menu" action="owl_test_partner_action" sequence="20"/>
+
+
+    <record id="owl_test_product_view" model="ir.ui.view">
+        <field name="name">Artcles</field>
+        <field name="model">product.template</field>
+        <field name="arch" type="xml">
+            <owl_test></owl_test>
+        </field>
+    </record>
+    <record id='owl_test_product_action' model='ir.actions.act_window'>
+        <field name="name">Artcles</field>
+        <field name="res_model">product.template</field>
+        <field name="view_mode">owl_test,tree,kanban,form</field>
+    </record>
+    <menuitem name="Artcles" id="owl_test_product_menu" parent="owl_test_main_menu" action="owl_test_product_action" sequence="30"/>
+
+
+    <record id="product_owl_graph_view2" model="ir.ui.view">
+        <field name="name">product_owl_graph_view</field>
+        <field name="model">product.template</field>
+        <field name="arch" type="xml">
+            <owl_graph></owl_graph>
+        </field>
+    </record>
+    <record id='product_owl_graph_action' model='ir.actions.act_window'>
+        <field name="name">Test vue owl_graph sur les articles</field>
+        <field name="res_model">product.template</field>
+        <field name="view_mode">owl_graph,tree,kanban,form</field>
+    </record>
+    <menuitem id="product_owl_graph_menu" parent="owl_test_main_menu" action="product_owl_graph_action" sequence="40"/>
+
+
+
+
+
+
+</odoo>

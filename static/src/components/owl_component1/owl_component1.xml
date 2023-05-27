@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="owl_test_views.OwlComponent1" owl="1">
+        <div class="tree-item-wrapper">
+            <div 
+                t-attf-class="list-group-item list-group-item-action d-flex justify-content-between align-items-center owl-tree-item"
+            >
+                Test : <t t-esc="props.item.name"/> (<t t-esc="props.item.id"/>)
+            </div>
+        </div>
+    </t>
+
+</templates>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+   <t t-name="is_bsa14.OwlTest02Template">
+        <Layout display="display">
+            <h1>Owl Test 02</h1>
+
+            Vue sans les boutons Filtres et Favoris : 
+            <pre>searchMenuTypes non défini</pre>
+
+            Ceci n'est pas une vue owl, mais qweb<br />
+            Il faut créer un widget OWL et l'ajouter dans cette vue pour faciliter la migration vers Odoo 16
+            <widget01/>
+        </Layout>
+    </t>
+</templates>
