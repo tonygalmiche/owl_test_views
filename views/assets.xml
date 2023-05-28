@@ -35,6 +35,7 @@
         <xpath expr="link[last()]" position="after">
             <link rel="stylesheet" type="text/scss" href="/owl_test_views/static/src/owl_test_view/owl_test_view.scss"/>
             <link rel="stylesheet" type="text/scss" href="/owl_test_views/static/lib/gantt-master/codebase/dhtmlxgantt.css"/>
+            <link rel="stylesheet" type="text/scss" href="/owl_test_views/static/src/dhtmlx_gantt/dhtmlx_gantt_view.scss"/>
         </xpath>
     </template>
 </odoo>

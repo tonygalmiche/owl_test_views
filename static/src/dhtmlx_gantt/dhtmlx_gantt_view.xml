@@ -4,24 +4,22 @@
     <div t-name="DhtmlxGanttTemplate"  owl="1">
         <h1>Vue Dhtmlx Gantt</h1>
 
-        <div id="gantt_here" style='width:100%; height:600px;'></div>
-        <!-- <script type="text/javascript">
-            gantt.init("gantt_here");
-            gantt.parse({
-                data: [
-                { id:1, text:"Project #2", start_date:"01-04-2018", 
-                    duration:18, progress:0.4, open:true },
-                { id:2, text:"Task #1", start_date:"02-04-2018", 
-                    duration:8, progress:0.6, parent:1 },
-                { id:3, text:"Task #2", start_date:"11-04-2018", 
-                    duration:8, progress:0.6, parent:1 }
-                ],
-                links: [
-                { id:1, source:1, target:2, type:"1" },
-                { id:2, source:2, target:3, type:"0" }
-                ]
-            });
-        </script> -->
+        <div id="gantt_here" style='width:99%; height:600px;'></div>
+
+        <div>
+            CTRL + Molette de la sours : Permet de zoomer et de-zoomer. 
+            Si une tâche est en dehors de la zone affichée, il faut cliquer dessus pour la remettre dans celle-ci.
+        </div>
+
+        <!-- <t t-foreach="props.items" t-as="item" t-key="item">
+            <div class="tree-item-wrapper">
+                <div 
+                    t-attf-class="list-group-item list-group-item-action d-flex justify-content-between align-items-center owl-tree-item"
+                >
+                    Tâche : <t t-esc="item.name"/> (<t t-esc="item.id"/>)
+                </div>
+            </div>
+        </t> -->
     </div>
 
 </templates>

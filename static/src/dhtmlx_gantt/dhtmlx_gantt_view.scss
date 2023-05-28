@@ -2,3 +2,37 @@
 //   width: 1200px;
 //   height: 1200px;
 // }
+
+
+
+
+.high {
+    border: 2px solid #d96c49;
+    color: #d96c49;
+    background: #d96c49;
+}
+
+.high .gantt_task_progress {
+    background: #db2536;
+}
+
+
+.low {
+    border: 2px solid #34c461;
+    color: #34c461;
+    background: #34c461;
+}
+
+.low .gantt_task_progress {
+    background: #23964d;
+}
+
+.medium {
+    border: 2px solid #6ba8e3;
+    color: #6ba8e3;
+    background: #6ba8e3;
+}
+
+.medium .gantt_task_progress {
+    background: #547dab;
+}
