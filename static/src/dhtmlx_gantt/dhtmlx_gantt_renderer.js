@@ -34,10 +34,11 @@ odoo.define("owl_test_views.DhtmlxGanttRenderer", function (require) {
 
 
         mounted() {
-            console.log("DhtmlxGanttRenderer mounted");
-
-
             this.gantt = gantt;
+            // Je n'ai pas trouvé d'autre solution que d'intégrer l'objet owl dans l'objet gantt pour pouvoir 
+            //l'utiliser dans les évènements du Gantt
+            gantt.owl = this; 
+
             this.gantt.i18n.setLocale("fr");
             this.gantt.config.xml_date = "%Y-%m-%d %H:%i";
             this.gantt.scales = [
@@ -226,7 +227,6 @@ odoo.define("owl_test_views.DhtmlxGanttRenderer", function (require) {
 
 
         patched() {
-            console.log("DhtmlxGanttRenderer patched");
             this.renderDhtmlxGantt();
         }
 
@@ -234,7 +234,6 @@ odoo.define("owl_test_views.DhtmlxGanttRenderer", function (require) {
         rnd() {
             //var x = Math.floor(Math.random()*100)/10;
             var x = Math.random();
-            console.log(x)
             return x
         }
     
@@ -258,30 +257,77 @@ odoo.define("owl_test_views.DhtmlxGanttRenderer", function (require) {
                     priority:priority,
                     champ_perso:"Champ perso à mettre dans l'infobulle",
                 }
-                //console.log(x, this.props.items[x]);
                 data.push(vals);
                 priority = priority+1;
                 if (priority>3){
                     priority=0;
                 }
             }
-      
-            //console.log(data);
-
-      
-
             this.gantt.clearAll(); 
             this.gantt.parse({
                 data : data,
                 links: links,
             });
-
-            console.log(this.gantt);
-
             this.gantt.message({
                 text: "Ceci est un autre message" ,
                 expire: 2000
             });
+
+
+            //En cliqant sur une task, cela affiche la liste des clients d'Odoo
+            this.gantt.attachEvent("onTaskClick", function(id,e){
+                console.log(id,e,e.target,e.target.className);
+
+                if (e.target.className=="gantt_task_content"){
+                    gantt.owl.env.bus.trigger('do-action', {
+                        action: {
+                            type: 'ir.actions.act_window',
+                            res_model: 'project.task',
+                            res_id: parseInt(id),
+                            view_mode: 'form,list',
+                            views: [[false, 'form'],[false, 'list']],
+                            //target: 'current'
+                            //target: 'new',
+                        },
+                    });
+                }
+                return true;
+            });
+
+
+
+            //TODO : Ne fonctionne pas
+            // this.gantt.attachEvent("onLinkClick", function (id) {
+            //     var link = this.getLink(id),
+            //         src = this.getTask(link.source),
+            //         trg = this.getTask(link.target),
+            //         types = this.config.links;
+        
+            //     var first = "", second = "";
+
+
+            //     console.log(id,link,this);
+
+            //     switch (link.type) {
+            //         case types.finish_to_start:
+            //             first = "finish";
+            //             second = "start";
+            //             break;
+            //         case types.start_to_start:
+            //             first = "start";
+            //             second = "start";
+            //             break;
+            //         case types.finish_to_finish:
+            //             first = "finish";
+            //             second = "finish";
+            //             break;
+            //     }
+        
+            //     var msg = "Must " + first + " <b>" + src.text + "</b> to " + second + " <b>" + trg.text + "</b>";
+            //     console.log(msg)
+            //     gantt.message(msg);
+            // });
+        
 
 
 
