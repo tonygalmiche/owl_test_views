@@ -20,13 +20,21 @@
 
             <script type="text/javascript" src="/web/static/lib/Chart/Chart.js"></script>
 
+            <script type="text/javascript" src="/owl_test_views/static/src/bandeau/bandeau.js" />
+
+            <script type="text/javascript" src="/owl_test_views/static/src/int_color/int_color.js" />
 
 
-
+            <script type="text/javascript" src="/owl_test_views/static/lib/gantt-master/codebase/dhtmlxgantt.js"></script>
+            <script type="text/javascript" src="/owl_test_views/static/src/dhtmlx_gantt/dhtmlx_gantt_view.js"></script>
+            <script type="text/javascript" src="/owl_test_views/static/src/dhtmlx_gantt/dhtmlx_gantt_model.js"></script>
+            <script type="text/javascript" src="/owl_test_views/static/src/dhtmlx_gantt/dhtmlx_gantt_controller.js"></script>
+            <script type="text/javascript" src="/owl_test_views/static/src/dhtmlx_gantt/dhtmlx_gantt_renderer.js"></script>
 
         </xpath>
         <xpath expr="link[last()]" position="after">
             <link rel="stylesheet" type="text/scss" href="/owl_test_views/static/src/owl_test_view/owl_test_view.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/owl_test_views/static/lib/gantt-master/codebase/dhtmlxgantt.css"/>
         </xpath>
     </template>
 </odoo>

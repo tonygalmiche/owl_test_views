@@ -26,6 +26,8 @@ odoo.define("owl_test_views.OWLGraphRenderer", function (require) {
 
       this.canvasRef = useRef("myChart");
 
+      console.log("OWLGraphRenderer constructor");
+
 
     }
 

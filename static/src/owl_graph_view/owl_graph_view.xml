@@ -9,7 +9,7 @@
             <canvas t-ref="myChart"></canvas>
         </div>
 
-        <t t-foreach="props.items" t-as="item">
+        <t t-foreach="props.items" t-as="item" t-key="item">
             <div class="tree-item-wrapper">
                 <div 
                     t-attf-class="list-group-item list-group-item-action d-flex justify-content-between align-items-center owl-tree-item"

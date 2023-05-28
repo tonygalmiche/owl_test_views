@@ -56,11 +56,26 @@
         </field>
     </record>
     <record id='product_owl_graph_action' model='ir.actions.act_window'>
-        <field name="name">Test vue owl_graph sur les articles</field>
+        <field name="name">Vue owl_graph</field>
         <field name="res_model">product.template</field>
         <field name="view_mode">owl_graph,tree,kanban,form</field>
     </record>
     <menuitem id="product_owl_graph_menu" parent="owl_test_main_menu" action="product_owl_graph_action" sequence="40"/>
+
+
+    <record id="dhtmlx_gantt_view2" model="ir.ui.view">
+        <field name="name">dhtmlx_gantt_view</field>
+        <field name="model">project.task</field>
+        <field name="arch" type="xml">
+            <dhtmlx_gantt></dhtmlx_gantt>
+        </field>
+    </record>
+    <record id='dhtmlx_gantt_action' model='ir.actions.act_window'>
+        <field name="name">Vue dhtmlx_gantt</field>
+        <field name="res_model">project.task</field>
+        <field name="view_mode">dhtmlx_gantt,tree,kanban,form</field>
+    </record>
+    <menuitem id="dhtmlx_gantt_menu" parent="owl_test_main_menu" action="dhtmlx_gantt_action" sequence="50"/>
 
 
 
