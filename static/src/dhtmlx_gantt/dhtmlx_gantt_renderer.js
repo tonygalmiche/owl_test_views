@@ -7,6 +7,10 @@ odoo.define("owl_test_views.DhtmlxGanttRenderer", function (require) {
     const { useState } = owl.hooks;
     const components = {};
 
+    var rpc = require('web.rpc');
+
+
+
     //Doc : https://docs.dhtmlx.com/gantt/api__refs__gantt.html
     //TODO : 
     //- Faire une requette pour récupérer les projets
@@ -91,8 +95,8 @@ odoo.define("owl_test_views.DhtmlxGanttRenderer", function (require) {
 
             //** Configuration des colonnes des tâches
             this.gantt.config.columns = [
-                {name: "text", label: "Tâche", tree: true, width: 300},
-                {name: "start_date", label: "Début", tree: true, width: 80},
+                {name: "text", label: "Tâche", tree: true, width: 260},
+                //{name: "start_date", label: "Début", tree: true, width: 80},
                 {
                     name: "progress", label: "%", width: 80, align: "center",
                     template: function (item) {
@@ -104,13 +108,13 @@ odoo.define("owl_test_views.DhtmlxGanttRenderer", function (require) {
                     }
                 },
                 {
-                    name: "assigned", label: "Assigné à", align: "center", width: 80,
+                    name: "assigned", label: "Assigné à", align: "center", width: 160,
                     // template: function (item) {
                     //     if (!item.users) return "Nobody";
                     //     return item.users.join(", ");
                     // }
                 },
-                {name: "duration", label: "Durée", tree: true, width: 80},
+                {name: "duration", label: "Durée", tree: true, width: 120},
             ];
 
 
@@ -244,25 +248,49 @@ odoo.define("owl_test_views.DhtmlxGanttRenderer", function (require) {
             var item={};
             var vals={};
             var priority=0;
-            for (var x in this.props.items) {
-                item = this.props.items[x];
-                //Doc : https://docs.dhtmlx.com/gantt/desktop__task_properties.html
-                vals={
-                    id:item.id,
-                    text:item.name,
-                    start_date:item.date_assign,
-                    duration:  Math.round(this.rnd()*100)+1,
-                    progress:this.rnd(),
-                    assigned:'Test',
-                    priority:priority,
-                    champ_perso:"Champ perso à mettre dans l'infobulle",
-                }
-                data.push(vals);
-                priority = priority+1;
-                if (priority>3){
-                    priority=0;
-                }
-            }
+            var marker_id=0;
+
+
+            console.log("items=",this.props.items);
+            console.log("links=",this.props.links);
+            console.log("props=",this.props);
+
+
+            // for (var x in this.props.items) {
+            //     item = this.props.items[x];
+            //     marker_id = item.id
+
+            //     //Doc : https://docs.dhtmlx.com/gantt/desktop__task_properties.html
+            //     vals={
+            //         id:item.id,
+            //         text:item.text,
+            //         //start_date:item.date_assign,
+            //         start_date:item.start_date,
+            //         //duration:  Math.round(this.rnd()*100)+1,
+            //         duration   : item.duration,
+            //         progress   : this.rnd(),
+            //         assigned   : item.assigned,
+            //         priority   : priority,
+            //         champ_perso: "Champ perso à mettre dans l'infobulle",
+            //         parent     : item.parent,
+            //     }
+
+            //     console.log(vals);
+
+
+            //     data.push(vals);
+            //     priority = priority+1;
+            //     if (priority>3){
+            //         priority=0;
+            //     }
+            // }
+
+
+            //console.log("links=",this.props.links);
+            data  = this.props.items;
+            links = this.props.links;
+
+
             this.gantt.clearAll(); 
             this.gantt.parse({
                 data : data,
@@ -272,6 +300,22 @@ odoo.define("owl_test_views.DhtmlxGanttRenderer", function (require) {
                 text: "Ceci est un autre message" ,
                 expire: 2000
             });
+
+
+
+            //Positionner un marker sur une task pour pouvoir ensuite se déplacer dessus avec le bouton OKclickMarker
+            if (marker_id>0){
+                var current_time = this.gantt.getTask(marker_id).start_date;
+                var text =  this.gantt.getTask(marker_id).text
+                this.todayMarker = this.gantt.addMarker({ 
+                    start_date: current_time, 
+                    css: "today", 
+                    text: "Marqueur pour "+text,
+                });
+            }
+        
+
+
 
 
             //En cliqant sur une task, cela affiche la liste des clients d'Odoo
@@ -293,6 +337,15 @@ odoo.define("owl_test_views.DhtmlxGanttRenderer", function (require) {
                 }
                 return true;
             });
+
+
+            this.gantt.attachEvent("onAfterTaskUpdate", function(id,item){
+                console.log("onAfterTaskUpdate 2", id, item.end_date, item.duration);
+                this.owl.WriteTask(id, item.end_date, item.duration);
+            });
+
+
+
 
 
 
@@ -344,7 +397,87 @@ odoo.define("owl_test_views.DhtmlxGanttRenderer", function (require) {
             // });
         }
 
+
+
+
+        async WriteTask(id,date_deadline,planned_hours){
+
+            //const date_utc = new Date(Date.UTC(date_deadline));
+            const isoDateString = new Date(date_deadline).toISOString();
+            const toUTCString   = new Date(date_deadline).toUTCString();
+            const d = new Date(date_deadline.getTime() - date_deadline.getTimezoneOffset()*60*1000);
+    
+            // const day = d.getDate();
+            // const month = d.getMonth();
+            // const year = d.getFullYear();
+            
+            // const hour = d.getHours();
+            // const min = d.getMinutes();
+            // const sec = d.getSeconds();
+            // const utc_date = year+"-"+month+"-"+day+" "+hour+":"+min+":"+sec 
+            
+            //console.log(date_deadline,utc_date,year,month,day,hour,min);
+    
+
+            var vals={
+                "date_deadline": d,
+                "planned_hours": planned_hours,
+            }
+
+            var prom = rpc.query({
+                model: 'project.task',
+                method: 'write',
+                args: [[id], vals],
+            });
+    
+
+
+            // await this.orm.write("project.task", [id], { 
+            //     "date_deadline": d,
+            //     "planned_hours": planned_hours,
+            // });
+        }
+    
+    
+
   
+
+
+        OKclickAnnee(ev) {
+            this.gantt.ext.zoom.setLevel("year");
+            console.log("min_date, max_date =",  this.gantt.getState().min_date,  this.gantt.getState().max_date);
+        }
+    
+        OKclickMois(ev) {
+            this.gantt.ext.zoom.setLevel("month");
+            console.log("min_date, max_date =",  this.gantt.getState().min_date,  this.gantt.getState().max_date);
+        }
+    
+        OKclickSemaine(ev) {
+            this.gantt.ext.zoom.setLevel("week");
+            console.log("min_date, max_date =",  this.gantt.getState().min_date,  this.gantt.getState().max_date);
+        }
+    
+        OKclickJour(ev) {
+            this.gantt.ext.zoom.setLevel("day");
+            console.log("min_date, max_date =",  this.gantt.getState().min_date,  this.gantt.getState().max_date);
+        }
+    
+        OKclickMarker(ev) {
+            var marker = gantt.getMarker(this.todayMarker);
+            var marker_date = marker.start_date;
+            this.gantt.showDate(marker_date)
+        }
+    
+        OKclickGoToDate(ev) {
+            var go_date = new Date();
+            go_date.setDate(go_date.getDate()+14); //Date du jour + 14 jours
+            console.log(go_date);
+            this.gantt.showDate(go_date);
+        }
+    
+
+
         willUpdateProps(nextProps) {
             Object.assign(this.state, {
                 localItems: nextProps.items,
@@ -360,6 +493,9 @@ odoo.define("owl_test_views.DhtmlxGanttRenderer", function (require) {
         },
         props: {
             items: {
+                type: Array,
+            },
+            links: {
                 type: Array,
             },
             arch: {
